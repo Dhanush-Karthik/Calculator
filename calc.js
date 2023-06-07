@@ -10,15 +10,19 @@ document.addEventListener("click",(e)=>{
 
 function expression(value) {
     var exp = document.getElementById("display").value;
+    if(exp==0 && !isNaN(value)){
+        exp="";
+    }
     if(isNaN(value)){
         lastOperation="";
         isPerformed=false;
     }
     if(isNaN(value) && isNaN(exp.charAt(exp.length-1))){
-        document.getElementById("display").value = exp.substring(0,exp.length-1)+value;
+        exp = exp.substring(0,exp.length-1)+value;
     }else{
-        document.getElementById("display").value += value.replaceAll(/\s/g, "");
+        exp += value.replaceAll(/\s/g, "");
     }
+    document.getElementById("display").value = exp;
 }
 
 function restrictInput(event){
@@ -33,7 +37,7 @@ function restrictInput(event){
 function remove() {
     isPerformed= false;
     lastOperation= "";
-    document.getElementById("display").value = "";
+    document.getElementById("display").value = "0";
     console.log("cleared");
 }
 
@@ -100,8 +104,6 @@ function calculate() {
     isPerformed = true;
     var op = [];
     var values = [];
-    
-    
     
     for(i = 0 ; i<exp.length ; i++){
         if(!isNaN(exp.charAt(i))){
