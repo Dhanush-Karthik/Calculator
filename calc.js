@@ -1,39 +1,62 @@
 var isPerformed = false;
 var lastOperation = "";
+var isDecimal= false;
 
 document.addEventListener("click",(e)=>{
     if(e.target.id){
-        console.log("hello")
         expression(e.target.innerHTML);
     }
 });
 
+function peek(val){
+    return val.charAt(val.length-1);
+}
+
+function trim(val,lim){
+    return val.substring(0,val.length-lim);
+}
+
 function expression(value) {
     var exp = document.getElementById("display").value;
-    if((exp===0 || exp=='0') && !isNaN(value)){
-        console.log('entered first if: '+exp);
-        exp="";
-    }
-    if(isNaN(value) && value!='.'){
-        console.log('entered second if');
+
+    //sets flag
+    if(isNaN(value)){
+        isDecimal = (value==='.')?true:false;
         lastOperation="";
         isPerformed=false;
     }
-    if(isNaN(value) && value!='.' && isNaN(exp.charAt(exp.length-1))){
-        console.log('entered third if');
-        exp = exp.substring(0,exp.length-1)+value;
-    }else{
-        console.log('entered else');
-        console.log(exp);
-        exp += value.replaceAll(/\s/g, "");
-        console.log(exp);
+
+    //replaces initial 0 with number
+    if((exp===0 || exp=='0') && !isNaN(value)){
+        exp="";
     }
+
+    //prevents muliple decimal points for same operand
+    if(isDecimal && value==='.' && isNaN(peek(exp))){
+        exp = trim(exp,1);    
+    }
+
+    //prevents repetation of operators by replacing the recent added operator
+    // does not replaces decimal point(.)
+    if(isNaN(value) && value!='.' && isNaN(peek(exp)) && peek(exp)!='.'){
+        exp = trim(exp,1)+value;
+    }
+
+    //default case
+    else{
+        exp += value.replaceAll(/\s/g, "");
+    }
+
     document.getElementById("display").value = exp;
 }
 
 function restrictInput(event){
     console.log("hello")
     var exp = event.target.value;
+    
+    // if(exp.length==1 || isNaN(peek(exp))){
+    //     exp="0";
+    // }
 
     if(exp=="0" && !isNaN(exp.charAt(exp.length-1))){
         exp="";
@@ -42,7 +65,7 @@ function restrictInput(event){
     if(isNaN(exp.charAt(exp.length-1)) && isNaN(exp.charAt(exp.length-2))){
         event.target.value = exp.substring(0,exp.length-2)+exp.charAt(exp.length-1);
     }
-    event.target.value = event.target.value.replace(/[^0-9+\-*/%]/g, '');
+    event.target.value = event.target.value.replace(/[^0-9+\-*./%]/g, '');
 }
 
 function remove() {
@@ -89,10 +112,7 @@ function perform(op, val1, val2){
 }
 function calculate() {
     var exp = document.getElementById("display").value;
-    
-    if(isPerformed){
-        exp += lastOperation;
-    }
+    console.log(lastOperation +" "+ isPerformed);
     
     if(exp===''){
         document.getElementById("display").value = "";
@@ -102,13 +122,17 @@ function calculate() {
         exp = exp.substring(0,exp.length-1);
     }
     console.log(exp);
-
+    
     if(!isPerformed){
         var i = exp.length-1;
-        while(!isNaN(exp.charAt(i))&& i>=0){
+        while((!isNaN(exp.charAt(i)) || exp.charAt(i)==='.') && i>=0){
             lastOperation=exp.charAt(i--)+lastOperation;
         }
         lastOperation=exp.charAt(i)+lastOperation;
+        
+    }
+    if(isPerformed){
+        exp += lastOperation;
     }
     console.log(lastOperation)
     
