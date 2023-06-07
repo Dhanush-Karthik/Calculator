@@ -3,6 +3,7 @@ var lastOperation = "";
 
 document.addEventListener("click",(e)=>{
     if(e.target.id){
+        console.log("hello")
         expression(e.target.innerHTML);
     }
 });
@@ -12,8 +13,12 @@ function expression(value) {
         lastOperation="";
         isPerformed=false;
     }
-    //[[0-9]|+|-|*|/|%]*
     document.getElementById("display").value += value.replaceAll(/\s/g, "");
+}
+
+function restrictInput(event){
+    console.log("hello")
+    event.target.value = event.target.value.replace(/[^0-9+\-*/%]/g, '');
 }
 
 function remove() {
@@ -73,6 +78,7 @@ function calculate() {
         exp = exp.substring(0,exp.length-1);
     }
     console.log(exp);
+
     if(!isPerformed){
         var i = exp.length-1;
         while(!isNaN(exp.charAt(i))&& i>=0){
