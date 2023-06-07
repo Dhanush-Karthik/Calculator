@@ -19,21 +19,26 @@ function trim(val,lim){
 function expression(value) {
     var exp = document.getElementById("display").value;
 
-    //sets flag
-    if(isNaN(value)){
-        isDecimal = (value==='.')?true:false;
-        lastOperation="";
-        isPerformed=false;
-    }
-
     //replaces initial 0 with number
     if((exp===0 || exp=='0') && !isNaN(value)){
         exp="";
     }
-
+    
     //prevents muliple decimal points for same operand
-    if(isDecimal && value==='.' && isNaN(peek(exp))){
-        exp = trim(exp,1);    
+    if(isDecimal && value==="."){
+        return;    
+    }
+
+    //if operator occurs decimal flag is set to false
+    if(isNaN(value) && value!="."){
+        isDecimal=false;
+    }
+
+    //sets flag
+    if(isNaN(value)){
+        lastOperation="";
+        isDecimal = (value==='.')?true:false;
+        isPerformed=false;
     }
 
     //prevents repetation of operators by replacing the recent added operator
@@ -46,7 +51,7 @@ function expression(value) {
     else{
         exp += value.replaceAll(/\s/g, "");
     }
-
+    console.log(isDecimal)
     document.getElementById("display").value = exp;
 }
 
@@ -54,11 +59,12 @@ function restrictInput(event){
     console.log("hello")
     var exp = event.target.value;
     
-    // if(exp.length==1 || isNaN(peek(exp))){
-    //     exp="0";
-    // }
+    console.log("exp: "+exp.length);
+    if(exp.length==1 || isNaN(peek(exp))){
+        event.target.value = "";
+    }
 
-    if(exp=="0" && !isNaN(exp.charAt(exp.length-1))){
+    if(exp==="0" && !isNaN(exp.charAt(exp.length-1))){
         exp="";
     }
     
@@ -70,6 +76,7 @@ function restrictInput(event){
 
 function remove() {
     isPerformed= false;
+    isDecimal=false;
     lastOperation= "";
     document.getElementById("display").value = "0";
     console.log("cleared");
