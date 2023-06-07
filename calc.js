@@ -9,15 +9,24 @@ document.addEventListener("click",(e)=>{
 });
 
 function expression(value) {
+    var exp = document.getElementById("display").value;
     if(isNaN(value)){
         lastOperation="";
         isPerformed=false;
     }
-    document.getElementById("display").value += value.replaceAll(/\s/g, "");
+    if(isNaN(value) && isNaN(exp.charAt(exp.length-1))){
+        document.getElementById("display").value = exp.substring(0,exp.length-1)+value;
+    }else{
+        document.getElementById("display").value += value.replaceAll(/\s/g, "");
+    }
 }
 
 function restrictInput(event){
     console.log("hello")
+    var exp = event.target.value;
+    if(isNaN(exp.charAt(exp.length-1)) && isNaN(exp.charAt(exp.length-2))){
+        event.target.value = exp.substring(0,exp.length-2)+exp.charAt(exp.length-1);
+    }
     event.target.value = event.target.value.replace(/[^0-9+\-*/%]/g, '');
 }
 
