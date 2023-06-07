@@ -34,6 +34,11 @@ function expression(value) {
         isDecimal=false;
     }
 
+    //concatinates 0 if operator follows dot
+    if(isNaN(peek(exp)) && value==="."){
+        exp+='0';
+    }
+    
     //sets flag
     if(isNaN(value)){
         lastOperation="";
