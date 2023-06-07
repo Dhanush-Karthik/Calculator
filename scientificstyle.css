@@ -1,0 +1,135 @@
+*{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+html,body{
+    height: 100%;
+    margin: 0px;
+    background-color: #000;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding-right: 40px;
+    padding-left: 80px;
+}
+ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+li{
+    margin-right: 20px;
+}
+a{
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 20px;
+}
+.active{
+    background-color: #fff;
+    color: #000;
+
+}
+.window{
+    height: 87%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calculator{
+    padding-top: 15px;
+    padding-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    background-color: #1b1b1b;
+    border-radius: 5%;
+}
+.display{
+    background-color: #000;
+    color: #fff;
+    width: 290px;
+    height: 60px;
+    margin: 15px;
+    border: 2px solid white;
+    border-radius: 5%;
+    text-align: right;
+    font-size: 18px;
+}
+.number-pad{
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    column-gap: 10px;
+    row-gap: 10px;
+}
+.number-pad-item{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    border-radius: 10%;
+    transition: 0.5s;
+}
+.number-pad-item:hover{
+    scale: 80%;
+}
+.number-pad-item-op{
+    background-color: rgb(33, 147, 241);
+}
+.number-pad-item-spl{
+    background-color: grey;
+}
+.number-pad-item-three{
+    display: flex;
+    width: 400px;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 10px;
+}
+.number-pad-item-ans{
+    background-color: orange;
+}
+.number-pad-item-eq{
+    background-color: white;
+    color: rgb(33, 147, 241);
+    margin-right: 5px;
+}
+@media only screen and (max-width:738px){
+    nav{
+        margin: 0px;
+        padding: 0px;
+        padding-top: 5px;
+        display:flex;
+        width: 100vw;
+        flex-direction: column;
+        justify-content: center;
+    }
+    nav h1{
+        margin-bottom: 3px;
+    }
+    .calculator{
+        margin-top: 10px;
+    }
+    a{
+        padding: 8px 10px;
+    }
+}
+@media only screen and (max-width:388px){
+    nav ul{
+        display: none;
+    }
+    nav ul .hidden{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}

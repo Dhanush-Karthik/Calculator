@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="scientificstyle.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script text="text/javascript" src="calc.js"></script>
+  </head>
+  <body>
+    <nav>
+        <h1>Casio Calculator</h1>
+        <ul>
+          <li><a href="index1.html" >Normal Calculator</a></li>
+          <li><a href="scientific.html" class="active">Scientific Calculator</a></li>
+        </ul>
+      </nav>
+    <div class="window">
+      <div class="container">
+        <div class="calculator">
+            Casio
+            <input id="display" class="display" type="text-area" />
+          <div class="number-pad">
+            <div class="number-pad-item number-pad-item-op">2nd</div>
+            <div class="number-pad-item number-pad-item-op">deg</div>
+            <div class="number-pad-item number-pad-item-op">sin-1</div>
+            <div class="number-pad-item number-pad-item-op">cos-1</div>
+            <div class="number-pad-item number-pad-item-op">tan-1</div>
+            <div class="number-pad-item number-pad-item-op">x^y</div>
+            <div class="number-pad-item number-pad-item-op">lg</div>
+            <div class="number-pad-item number-pad-item-op">ln</div>
+            <div class="number-pad-item number-pad-item-op">(</div>
+            <div class="number-pad-item number-pad-item-op">)</div>
+            <div class="number-pad-item number-pad-item-op">sqrt(x)</div>
+            <div class="number-pad-item number-pad-item-op">x!</div>
+            <div class="number-pad-item number-pad-item-op">1/x</div>
+            <div class="number-pad-item number-pad-item-op" onclick="expression(this.innerHTML)">%</div>
+            <div class="number-pad-item number-pad-item-op" onclick="expression(this.innerHTML)">/</div>
+            <div class="number-pad-item number-pad-item-spl" onclick="remove()">C</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">7</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">8</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">9</div>
+            <div class="number-pad-item number-pad-item-op" onclick="expression(this.innerHTML)">*</div>
+            <div class="number-pad-item number-pad-item-spl" onclick="backspace()">BS</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">4</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">5</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">6</div>
+            <div class="number-pad-item number-pad-item-op" onclick="expression(this.innerHTML)">-</div>
+            <div class="number-pad-item number-pad-item-spl" onclick="expression(this.innerHTML)">pi</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">1</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">2</div>
+            <div class="number-pad-item" onclick="expression(this.innerHTML)">3</div>
+            <div class="number-pad-item number-pad-item-op" onclick="expression(this.innerHTML)">+</div>
+            <div class="number-pad-item number-pad-item-e number-pad-item-spl">e</div>
+            <div class="number-pad-item number-pad-item-dot" onclick="expression(this.innerHTML)">.</div>
+            <div class="number-pad-item number-pad-item-0" onclick="expression(this.innerHTML)">0</div>
+            <div class="number-pad-item number-pad-item-ans number-pad-item-spl">Ans</div>
+            <div class="number-pad-item number-pad-item-eq number-pad-item-op" onclick="calculate()">=</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

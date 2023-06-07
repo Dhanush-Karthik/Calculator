@@ -1,0 +1,141 @@
+*{
+    color: #fff;
+}
+html,body{
+    height: 100%;
+    background-color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding-right: 40px;
+    padding-left: 80px;
+}
+ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+li{
+    margin-right: 20px;
+}
+a{
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 20px;
+}
+.active{
+    background-color: #fff;
+    color: #000;
+
+}
+.window{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    color: #fff;
+}
+.calculator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1b1b1b;
+    width: 290px;
+    border-radius: 5%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.input{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 40px;
+    width: 230px;
+    background-color: #000;
+    border: 2px solid white;
+    border-radius: 5%;
+    color: #fff;
+    text-align: right;
+    font-size: 18px;
+}
+.number-pad{
+    display: grid;
+    cursor: pointer;
+    grid-template-columns: repeat(4,50px);
+    column-gap: 10px;
+    width: 230px;
+    height: 250px;
+}
+.number-pad-item{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    border-radius: 20%;
+    background-color: #000;
+    align-items: center;
+    transition: 0.5s;
+}
+.number-pad-item:hover{
+    scale: 80%;
+}
+.number-pad-item-spl{
+    background-color: gray;
+}
+.number-pad-item-three{
+    width: 230px;
+    display: flex;
+
+}
+.number-pad-item-0{
+    width: 110px;
+    display: flex;
+}
+.number-pad-item-dot{
+    margin-left: 10px;
+}
+.number-pad-item-eq{
+    margin-left: 10px;
+}
+.number-pad-item-op{
+    background-color: rgb(33, 147, 241);
+}
+@media only screen and (max-width:738px){
+    nav{
+        margin: 0px;
+        padding: 0px;
+        padding-top: 5px;
+        display:flex;
+        width: 100vw;
+        flex-direction: column;
+        justify-content: center;
+    }
+    nav h1{
+        margin-bottom: 3px;
+    }
+    .calculator{
+        margin-top: 10px;
+    }
+    a{
+        padding: 8px 10px;
+    }
+}
+@media only screen and (max-width:388px){
+    nav ul{
+        display: none;
+    }
+    nav ul .hidden{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
