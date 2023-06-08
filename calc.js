@@ -16,6 +16,10 @@ function trim(val,lim){
     return val.substring(0,val.length-lim);
 }
 
+function mpeek(exp){
+    return exp.substring(0,exp.length-1).charAt(exp.length-2);
+}
+
 function expression(value) {
     var exp = document.getElementById("display").value;
 
@@ -63,22 +67,39 @@ function expression(value) {
 function restrictInput(event){
     console.log("hello")
     var temp = event.target.value;
-    var exp = temp.substring(0,temp.length-1);
+    var exp = temp.substring(0,temp.length);
     var value = peek(exp);
-    console.log(exp+" "+value);
+    console.log("exp: "+exp+" value: "+value);
 
-    // console.log("exp: "+exp.length);
-    // if(exp.length==1 || isNaN(peek(exp))){
-    //     event.target.value = "";
-    // }
+    //prevents muliple decimal points for same operand
+    if(isDecimal && value==="."){
+        event.target.value = trim(event.target.value,1);
+        return;    
+    }
 
-    // if(exp==="0" && !isNaN(exp.charAt(exp.length-1))){
-    //     exp="";
-    // }
-    
-    // if(isNaN(exp.charAt(exp.length-1)) && isNaN(exp.charAt(exp.length-2))){
-    //     event.target.value = exp.substring(0,exp.length-2)+exp.charAt(exp.length-1);
-    // }
+    //if operator occurs decimal flag is set to false
+    if(isNaN(value) && value!="."){
+        isDecimal=false;
+    }
+
+    //concatinates 0 if operator follows dot
+    if((isNaN(mpeek(exp)) || mpeek(exp)==="") && value==="."){
+        event.target.value=trim(event.target.value,1)+"0.";
+    }
+
+    //sets flag
+    if(isNaN(value)){
+        lastOperation="";
+        isDecimal = (value==='.')?true:false;
+        isPerformed=false;
+    }
+
+    //prevents repetation of operators by replacing the recent added operator
+    // does not replaces decimal point(.)
+    if(isNaN(value) && value!='.' && isNaN(mpeek(exp)) && mpeek(exp)!='.'){
+        event.target.value = trim(exp,2)+value;
+    }
+
     event.target.value = event.target.value.replace(/[^0-9+\-*./%]/g, '');
 }
 
@@ -150,7 +171,7 @@ function calculate() {
     if(!isNaN(lastOperation.charAt(0)) || lastOperation.charAt(0)==='.'){
         lastOperation="";
     }
-    
+
     if(isPerformed){
         exp += lastOperation;
     }
