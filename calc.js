@@ -38,7 +38,7 @@ function expression(value) {
     if(isNaN(peek(exp)) && value==="."){
         exp+='0';
     }
-    
+
     //sets flag
     if(isNaN(value)){
         lastOperation="";
@@ -62,20 +62,23 @@ function expression(value) {
 
 function restrictInput(event){
     console.log("hello")
-    var exp = event.target.value;
-    
-    console.log("exp: "+exp.length);
-    if(exp.length==1 || isNaN(peek(exp))){
-        event.target.value = "";
-    }
+    var temp = event.target.value;
+    var exp = temp.substring(0,temp.length-1);
+    var value = peek(exp);
+    console.log(exp+" "+value);
 
-    if(exp==="0" && !isNaN(exp.charAt(exp.length-1))){
-        exp="";
-    }
+    // console.log("exp: "+exp.length);
+    // if(exp.length==1 || isNaN(peek(exp))){
+    //     event.target.value = "";
+    // }
+
+    // if(exp==="0" && !isNaN(exp.charAt(exp.length-1))){
+    //     exp="";
+    // }
     
-    if(isNaN(exp.charAt(exp.length-1)) && isNaN(exp.charAt(exp.length-2))){
-        event.target.value = exp.substring(0,exp.length-2)+exp.charAt(exp.length-1);
-    }
+    // if(isNaN(exp.charAt(exp.length-1)) && isNaN(exp.charAt(exp.length-2))){
+    //     event.target.value = exp.substring(0,exp.length-2)+exp.charAt(exp.length-1);
+    // }
     event.target.value = event.target.value.replace(/[^0-9+\-*./%]/g, '');
 }
 
@@ -143,6 +146,11 @@ function calculate() {
         lastOperation=exp.charAt(i)+lastOperation;
         
     }
+
+    if(!isNaN(lastOperation.charAt(0)) || lastOperation.charAt(0)==='.'){
+        lastOperation="";
+    }
+    
     if(isPerformed){
         exp += lastOperation;
     }
