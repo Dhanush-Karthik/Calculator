@@ -3,8 +3,11 @@ var lastOperation = "";
 var isDecimal= false;
 
 document.addEventListener("click",(e)=>{
-    if(e.target.id){
+    var target = e.target;
+    var exp = document.getElementById('display').value;
+    if(target.id){
         expression(e.target.innerHTML);
+        setDecimalFlag(exp,target.innerHTML);
     }
 });
 
@@ -20,6 +23,50 @@ function mpeek(exp){
     return exp.substring(0,exp.length-1).charAt(exp.length-2);
 }
 
+function setDecimalFlag(exp,value){
+    if(!isDecimal && value==="."){
+        console.log("value: "+value+" exp: "+exp);
+        // console.log(isDecimal)
+        var i = exp.length-1;
+        while(exp.charAt(i)!='.' && i>=0){
+            i--;
+        }
+        if(i!=0){
+            isDecimal=false;
+        }
+    }
+    console.log(isDecimal);
+}
+
+function setDeciFlag(exp){
+    var i = exp.length-1;
+    while(i>=0 && exp.charAt(i)!='.'){
+        console.log(exp+" "+exp.charAt(i)+" "+i);
+        i--;
+    }
+    if(i===-1){
+        isDecimal=false;
+        console.log('sucess');
+    }else{
+        isDecimal=true;
+    }
+    console.log(isDecimal);
+}
+
+function remove() {
+    isPerformed= false;
+    isDecimal=false;
+    lastOperation= "";
+    document.getElementById("display").value = "0";
+    console.log("cleared");
+}
+
+function backspace() {
+    var exp = document.getElementById('display').value;
+    document.getElementById("display").value = exp.substring(0, exp.length - 1);
+    setDeciFlag(document.getElementById('display').value);
+}
+
 function expression(value) {
     var exp = document.getElementById("display").value;
 
@@ -31,11 +78,6 @@ function expression(value) {
     //prevents muliple decimal points for same operand
     if(isDecimal && value==="."){
         return;    
-    }
-
-    //if operator occurs decimal flag is set to false
-    if(isNaN(value) && value!="."){
-        isDecimal=false;
     }
 
     //concatinates 0 if operator follows dot
@@ -60,7 +102,6 @@ function expression(value) {
     else{
         exp += value.replaceAll(/\s/g, "");
     }
-    console.log(isDecimal)
     document.getElementById("display").value = exp;
 }
 
@@ -101,21 +142,6 @@ function restrictInput(event){
     }
 
     event.target.value = event.target.value.replace(/[^0-9+\-*./%]/g, '');
-}
-
-function remove() {
-    isPerformed= false;
-    isDecimal=false;
-    lastOperation= "";
-    document.getElementById("display").value = "0";
-    console.log("cleared");
-}
-
-function backspace() {
-    document.getElementById("display").value = document
-    .getElementById("display")
-    .value.substring(0, document.getElementById("display").value.length - 1);
-    console.log("clicked");
 }
 
 function hasPrecedence(op1, op2) {
@@ -202,4 +228,5 @@ function calculate() {
     }
 
     document.getElementById('display').value = values.pop();
+    setDeciFlag(document.getElementById('display').value);
 }
