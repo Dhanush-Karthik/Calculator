@@ -26,8 +26,6 @@ function mpeek(exp){
 //sets decimal flag with value
 function setDecimalFlag(exp,value){
     if(!isDecimal && value==="."){
-        console.log("value: "+value+" exp: "+exp);
-        // console.log(isDecimal)
         var i = exp.length-1;
         while(exp.charAt(i)!='.' && i>=0){
             i--;
@@ -36,23 +34,19 @@ function setDecimalFlag(exp,value){
             isDecimal=false;
         }
     }
-    console.log(isDecimal);
 }
 
 //sets decimal flag while deleting or evaluating
 function setDeciFlag(exp){
     var i = exp.length-1;
     while(i>=0 && exp.charAt(i)!='.'){
-        console.log(exp+" "+exp.charAt(i)+" "+i);
         i--;
     }
     if(i===-1){
         isDecimal=false;
-        console.log('sucess');
     }else{
         isDecimal=true;
     }
-    console.log(isDecimal);
 }
 
 //clears the input
@@ -61,7 +55,6 @@ function remove() {
     isDecimal=false;
     lastOperation= "";
     document.getElementById("display").value = "0";
-    console.log("cleared");
 }
 
 //deletes recently added elements
@@ -112,11 +105,9 @@ function expression(value) {
 
 //handles keyboard input
 function restrictInput(event){
-    console.log("hello")
     var temp = event.target.value;
     var exp = temp.substring(0,temp.length);
     var value = peek(exp);
-    console.log("exp: "+exp+" value: "+value);
 
     //prevents muliple decimal points for same operand
     if(isDecimal && value==="."){
@@ -167,16 +158,12 @@ function perform(op, val1, val2){
     val2 = parseFloat(val2);
     switch(op){
         case '+':
-            // console.log(val2+'+'+val1)
             return val2+val1;
         case '*':
-            // console.log(val2+'*'+val1)
             return val2*val1;
         case '/':
-            // console.log(val2+'/'+val1)
             return val2/val1;
         case '-':
-            // console.log(val2+'-'+val1)
             return val2-val1;
         case '%':
             return val2%val1;
@@ -186,7 +173,6 @@ function perform(op, val1, val2){
 //performs operation
 function calculate() {
     var exp = document.getElementById("display").value;
-    console.log(lastOperation +" "+ isPerformed);
     
     if(exp===''){
         document.getElementById("display").value = "";
@@ -195,7 +181,6 @@ function calculate() {
     while(isNaN(exp.charAt(exp.length-1))){
         exp = exp.substring(0,exp.length-1);
     }
-    console.log(exp);
     
     if(!isPerformed){
         var i = exp.length-1;
@@ -213,7 +198,6 @@ function calculate() {
     if(isPerformed){
         exp += lastOperation;
     }
-    console.log(lastOperation)
     
     isPerformed = true;
     var op = [];
@@ -238,7 +222,7 @@ function calculate() {
     while(op.length!=0){
         values.push(perform(op.pop(),values.pop(),values.pop()));
     }
-    
+
     document.getElementById('display').value = values.pop();
     setDeciFlag(document.getElementById('display').value);
 }
