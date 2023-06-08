@@ -23,6 +23,7 @@ function mpeek(exp){
     return exp.substring(0,exp.length-1).charAt(exp.length-2);
 }
 
+//sets decimal flag with value
 function setDecimalFlag(exp,value){
     if(!isDecimal && value==="."){
         console.log("value: "+value+" exp: "+exp);
@@ -38,6 +39,7 @@ function setDecimalFlag(exp,value){
     console.log(isDecimal);
 }
 
+//sets decimal flag while deleting or evaluating
 function setDeciFlag(exp){
     var i = exp.length-1;
     while(i>=0 && exp.charAt(i)!='.'){
@@ -53,6 +55,7 @@ function setDeciFlag(exp){
     console.log(isDecimal);
 }
 
+//clears the input
 function remove() {
     isPerformed= false;
     isDecimal=false;
@@ -61,12 +64,14 @@ function remove() {
     console.log("cleared");
 }
 
+//deletes recently added elements
 function backspace() {
     var exp = document.getElementById('display').value;
     document.getElementById("display").value = exp.substring(0, exp.length - 1);
     setDeciFlag(document.getElementById('display').value);
 }
 
+//handles input
 function expression(value) {
     var exp = document.getElementById("display").value;
 
@@ -105,6 +110,7 @@ function expression(value) {
     document.getElementById("display").value = exp;
 }
 
+//handles keyboard input
 function restrictInput(event){
     console.log("hello")
     var temp = event.target.value;
@@ -144,6 +150,9 @@ function restrictInput(event){
     event.target.value = event.target.value.replace(/[^0-9+\-*./%]/g, '');
 }
 
+
+//Evaluates the expression
+//checks precedence of the operator
 function hasPrecedence(op1, op2) {
     if(op2=='%'){
         return 'true';
@@ -152,6 +161,7 @@ function hasPrecedence(op1, op2) {
     else return true;
 }
 
+//performs actual operation
 function perform(op, val1, val2){
     val1 = parseFloat(val1);
     val2 = parseFloat(val2);
@@ -172,6 +182,8 @@ function perform(op, val1, val2){
             return val2%val1;
     }
 }
+
+//performs operation
 function calculate() {
     var exp = document.getElementById("display").value;
     console.log(lastOperation +" "+ isPerformed);
@@ -226,7 +238,7 @@ function calculate() {
     while(op.length!=0){
         values.push(perform(op.pop(),values.pop(),values.pop()));
     }
-
+    
     document.getElementById('display').value = values.pop();
     setDeciFlag(document.getElementById('display').value);
 }
